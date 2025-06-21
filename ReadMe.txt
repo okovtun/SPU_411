@@ -25,6 +25,11 @@ DONE:
 	String str2 = "World";
 	String str3 = str1 + str2;
 	cout << str3 << endl;
+4.	str1 += str2;
+5. 
+	String str;
+	cout << "Введите строку: "; cin >> str;
+	cout << str << endl;
 
 DONE:
 0. Выучить теорию !!!!!!!

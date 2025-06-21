@@ -2,6 +2,11 @@
 https://www.youtube.com/playlist?list=PLeqyOOqxeiIP4usBDeWs6DqgAEn7Yj2aG
 
 TODO:
+1. 
+	Fraction A = 2.75;
+	cout << A << endl;
+
+DONE:
 0. Выучить теорию !!!!!!!
 1. В Solution 'IntroductionToOOP' добавить проект 'Fraction',
    и в нем реализовать класс 'Fraction', описывающий простую дробь.

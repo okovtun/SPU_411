@@ -1,6 +1,9 @@
 ﻿#define _CRT_SECURE_NO_WARNINGS
 #include<iostream>
 using namespace std;
+using std::cin;
+using std::cout;
+using std::endl;
 
 #define delimiter "\n-------------------------------------\n"
 
@@ -48,12 +51,12 @@ public:
 		this->denominator = 1;
 		cout << "DefaultConstructor:\t" << this << endl;
 	}
-	Fraction(int integer)
+	explicit Fraction(int integer)
 	{
 		this->integer = integer;
 		this->numerator = 0;
 		this->denominator = 1;
-		cout << "Constructor:\t\t" << this << endl;
+		cout << "SingleArgConstructor:\t" << this << endl;
 	}
 	Fraction(int numerator, int denominator)
 	{
@@ -111,6 +114,16 @@ public:
 		Fraction old = *this;
 		integer++;
 		return old;
+	}
+
+	//				Type-cast operators:
+	operator int()const
+	{
+		return integer + numerator / denominator;
+	}
+	operator double()const
+	{
+		return integer + (double)numerator / denominator;
 	}
 
 	//					Methods:
@@ -271,7 +284,7 @@ std::istream& operator>>(std::istream& cin, Fraction& obj)
 
 	switch (n)
 	{
-	case 1:obj = numbers[0]; break;
+	case 1:obj = Fraction(numbers[0]); break;
 	case 2:obj = Fraction(numbers[0], numbers[1]); break;
 	case 3:obj = Fraction(numbers[0], numbers[1], numbers[2]); break;
 	}
@@ -284,7 +297,9 @@ std::istream& operator>>(std::istream& cin, Fraction& obj)
 //#define ARITHMETICAL_OPERATORS
 //#define INCREMENT_DECREMENT
 //#define COMPARISON_OPERATORS
-#define ISTREAM_OPERATOR
+//#define ISTREAM_OPERATOR
+//#define CONVERSIONS_BASICS
+//#define CONVERSION_FROM_OTHER_TO_CLASS
 
 void main()
 {
@@ -361,5 +376,49 @@ void main()
 	cout << delimiter << endl;
 #endif // ISTREAM_OPERATOR
 
+#ifdef CONVERSIONS_BASICS
+	//(type)value;	//C-like notation
+//type(value);	//Functional notation
+//C4244: ... possible loss of data
 
+	int a = 2;		//No conversions
+	double b = 3;	//Implicit conversion from less to more ('int' to 'double')
+	int c = b;		//Implicit conversion from more to less without data loss
+	int d = 4.5;	//Implicit conversion from more to less with data loss  
+#endif // CONVERSIONS_BASICS
+
+	/*
+	------------------------------
+	1. From other to Class:
+		1.1. SingleArgumentConstrictor;
+		1.2. Assignment operator (Copy assignment);
+	2. From Class to other;
+	------------------------------
+	*/
+
+#ifdef CONVERSION_FROM_OTHER_TO_CLASS
+	Fraction A = (Fraction)5;		//Conversion from less to more
+	cout << A << endl;
+
+	Fraction B;
+	cout << delimiter << endl;
+	B = Fraction(8);
+	cout << delimiter << endl;
+	cout << B << endl;
+#endif // CONVERSION_FROM_OTHER_TO_CLASS
+
+	/*operator type()
+	{
+		....;
+		....;
+		....;
+	}*/
+
+	Fraction A(2, 3, 4);
+	cout << A << endl;
+
+	int a = A;
+	cout << a << endl;
+	double b = A;
+	cout << b << endl;
 }

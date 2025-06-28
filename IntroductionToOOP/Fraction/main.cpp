@@ -58,6 +58,17 @@ public:
 		this->denominator = 1;
 		cout << "SingleArgConstructor:\t" << this << endl;
 	}
+	Fraction(double decimal)
+	{
+		//decimal - десятичный
+		decimal += 1e-10;
+		integer = decimal;	//неявное преобразование типов из 'double' в 'int'
+		decimal -= integer;
+		denominator = 1e+9;	//Максимально возможное значение числителя (9 десятичных разрядов)
+		//e - Exponent (оснвание системы счисления)
+		numerator = decimal * denominator;
+		reduce();
+	}
 	Fraction(int numerator, int denominator)
 	{
 		this->integer = 0;
@@ -127,6 +138,31 @@ public:
 	}
 
 	//					Methods:
+	Fraction& reduce()
+	{
+		//https://www.webmath.ru/poleznoe/formules_12_7.php
+		int more, less, rest;
+		if (numerator < denominator)
+		{
+			less = numerator;
+			more = denominator;
+		}
+		else
+		{
+			more = numerator;
+			less = denominator;
+		}
+		do
+		{
+			rest = more % less;
+			more = less;
+			less = rest;
+		} while (rest);
+		int GCD = more;	//GCD - Greatest Common Divisor
+		numerator /= GCD;
+		denominator /= GCD;
+		return *this;
+	}
 	Fraction& to_improper()
 	{
 		//Переводит дробь в неправильную (Целую часть интегрирует в числитель)
@@ -275,7 +311,7 @@ std::istream& operator>>(std::istream& cin, Fraction& obj)
 		numbers[n++] = atoi(pch);	//https://legacy.cplusplus.com/reference/cstdlib/atoi/
 	/*
 	---------------------------
-	Функция atoi() ASCII to Integer, принимает строку ASCII-сиволов, и возвращает целое число, 
+	Функция atoi() ASCII to Integer, принимает строку ASCII-сиволов, и возвращает целое число,
 	соответствуюзее этой строке.
 	---------------------------
 	*/
@@ -300,6 +336,7 @@ std::istream& operator>>(std::istream& cin, Fraction& obj)
 //#define ISTREAM_OPERATOR
 //#define CONVERSIONS_BASICS
 //#define CONVERSION_FROM_OTHER_TO_CLASS
+//#define CONVERSIONS_FROM_CLASS_TO_OTHER
 
 void main()
 {
@@ -407,12 +444,13 @@ void main()
 	cout << B << endl;
 #endif // CONVERSION_FROM_OTHER_TO_CLASS
 
+#ifdef CONVERSIONS_FROM_CLASS_TO_OTHER
 	/*operator type()
-	{
-		....;
-		....;
-		....;
-	}*/
+{
+	....;
+	....;
+	....;
+}*/
 
 	Fraction A(2, 3, 4);
 	cout << A << endl;
@@ -421,4 +459,12 @@ void main()
 	cout << a << endl;
 	double b = A;
 	cout << b << endl;
+#endif // CONVERSIONS_FROM_CLASS_TO_OTHER
+
+	/*int i = 0;
+	i += 1;*/
+
+	Fraction A = 2.76;
+	cout << A << endl;
+
 }

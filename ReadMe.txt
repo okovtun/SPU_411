@@ -1,7 +1,12 @@
 ﻿https://github.com/okovtun/SPU_411.git
 https://www.youtube.com/playlist?list=PLeqyOOqxeiIP4usBDeWs6DqgAEn7Yj2aG
 
-TODO:
+TOREAD:
+!!! https://learn.microsoft.com/en-us/cpp/build/reference/zc-nrvo?view=msvc-170 !!!
+https://legacy.cplusplus.com/doc/tutorial/classes2/
+
+
+DONE:
 1. 
 	Fraction A = 2.75;
 	cout << A << endl;

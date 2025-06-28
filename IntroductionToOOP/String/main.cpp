@@ -1,4 +1,5 @@
-﻿#include<iostream>
+﻿#include<Windows.h>
+#include<iostream>
 using namespace std;
 using std::cin;
 using std::cout;
@@ -99,8 +100,22 @@ std::ostream& operator<<(std::ostream& os, const String& obj)
 {
 	return os << obj.get_str();
 }
+std::istream& operator>>(std::istream& cin, String& obj)
+{
+	const int SIZE = 1024;	//Размер буфера - 1kB
+	char buffer[SIZE] = {};
+	cin >> buffer;
+	obj = buffer;
+	return cin;
+}
+std::istream& getline(std::istream& cin, String& obj)
+{
+	cin.getline(obj.get_str(), obj.get_size());
+	return cin;
+}
 
 //#define CONSTRUCTORS_CHECK
+//#define OPERATOR_PLUS
 
 void main()
 {
@@ -123,8 +138,20 @@ void main()
 	cout << str4 << endl;
 #endif // CONSTRUCTORS_CHECK
 
+#ifdef OPERATOR_PLUS
 	String str1 = "Hello";
 	String str2 = "World";
 	String str3 = str1 + " " + str2;
 	cout << str3 << endl;
+#endif // OPERATOR_PLUS
+
+	String str;
+	cout << "Введите строку: ";
+	SetConsoleCP(1251);
+	//cin >> str;
+	//cin.getline(str.get_str(), str.get_size());
+	getline(cin, str);
+	SetConsoleCP(866);
+	cout << str << endl;
+
 }

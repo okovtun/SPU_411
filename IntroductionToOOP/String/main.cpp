@@ -58,6 +58,11 @@ public:
 	}
 	String(String&& other)
 	{
+		//C++11;
+		//MoveConstructor
+		//MoveAssignment
+		//The rule of 5
+		//The rule of Zero
 		this->size = other.size;
 		this->str = other.str;
 		other.size = 0;
@@ -80,6 +85,7 @@ public:
 	//				Operators:
 	String& operator=(const String& other)
 	{
+		//DeepCopy
 		if (this == &other)return *this;
 		delete[] this->str;
 		this->size = other.size;

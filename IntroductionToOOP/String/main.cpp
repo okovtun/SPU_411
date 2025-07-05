@@ -28,47 +28,46 @@ public:
 	}
 
 	//				Constructors:
-	explicit String(int size = 80)
+	explicit String(int size = 80) :size(size), str(new char[this->size]{})
 	{
-		this->size = size;
-		this->str = new char[size] {};
+		//this->size = size;
+		//this->str = new char[size] {};
 #ifdef DEBUG
 		cout << "DefaultConstructor:\t" << this << endl;
 #endif // DEBUG
 	}
-	String(const char str[])
+	String(const char str[]) :size(strlen(str) + 1), str(new char[size] {})
 	{
 		cout << typeid(str).name() << endl;
-		size = 0;
-		while (str[size++]);
-		this->str = new char[size] {};
+		//size = 0;
+		//while (str[size++]);
+		//this->str = new char[size] {};
 		for (int i = 0; str[i]; i++)this->str[i] = str[i];
 #ifdef DEBUG
 		cout << "Constructor:\t\t" << this << endl;
 #endif // DEBUG
 	}
-	String(const String& other)
+	String(const String& other) :size(other.size), str(new char[size] {})
 	{
 		//Конструктор копирования дожлен выполнять DeepCopy (Побитовое копирование),
 		//т.е. выделять динамическую память под объект и побитово (поэлементно)
 		//копировать содержимое динамической памяти из существующего объекта в создаваемый.
-		this->size = other.size;
-		this->str = new char[size] {};
+		//this->size = other.size;
+		//this->str = new char[size] {};
 		for (int i = 0; i < size; i++)this->str[i] = other.str[i];
 #ifdef DEBUG
 		cout << "CopyConstructor:\t" << this << endl;
 #endif // DEBUG
 	}
-	String(String&& other)
+	String(String&& other):size(other.size), str(other.str)
 	{
-		this->size = other.size;
-		this->str = other.str;
+		//this->size = other.size;
+		//this->str = other.str;
 		other.size = 0;
 		other.str = nullptr;	//Защищаем память от удаления деструктором.
 #ifdef DEBUG
 		cout << "MoveConstructor:\t" << this << endl;
 #endif // DEBUG
-
 	}
 	~String()
 	{
@@ -156,9 +155,10 @@ std::istream& getline(std::istream& cin, String& obj)
 }
 
 //#define CONSTRUCTORS_CHECK
-//#define OPERATOR_PLUS
+#define OPERATOR_PLUS
 //#define ISTREAM_OPERATOR
-#define PERFORMANCE_TEST
+//#define PERFORMANCE_TEST
+//#define CALLING_CONSTRUCTORS
 
 void main()
 {
@@ -203,7 +203,7 @@ void main()
 	cout << str << endl;
 #endif // ISTREAM_OPERATOR
 
-#ifdef PERFORMANCE_CHECK
+#ifdef PERFORMANCE_TEST
 	String text = R"(When a return statement contains an expression of non-primitive type, its execution copies the expression result into the return slot of the calling function. The compiler invokes the copy or move constructor of the returned type. Then, as the function is exited, destructors for function-local variables are called, which includes any variables named in the expression.
 		The C++ standard allows(but doesn't require) the compiler to optionally construct the returned object directly in the return slot of the calling function. This construction skips (or elides) the copy or move constructor executed as part of the return statement. Unlike most other optimizations, this transformation is allowed to have an observable effect on the program's output.Namely, the copy or move constructor and associated destructor are called one less time.The standard still requires that the named returned variable has a defined copy or move constructor, even if the compiler elides the constructor in all cases.
 			In versions before Visual Studio 2022 version 17.4, when optimizations are disabled(such as under / Od or in functions marked #pragma optimize("", off)) the compiler only performs mandatory copy and move elision.Under / O2, the older compilers perform optional copy or move elision on return of a named variable in an optimized function when all of these conditions are met : it has no loops or exception handling, it doesn't return multiple symbols with overlapping lifetimes, the type's copy or move constructor doesn't have default arguments.
@@ -218,8 +218,9 @@ void main()
 		arr[i] = get_text(text);
 	}
 	cout << "DONE" << endl;
-#endif // PERFORMANCE_CHECK
+#endif // PERFORMANCE_TEST
 
+#ifdef CALLING_CONSTRUCTORS
 	String str1;		//Default constructor
 	str1.info();
 
@@ -243,6 +244,9 @@ void main()
 	//		!!!		{} СЛЕДУЕТ ИСПОЛЬЗОВАТЬ С ОСТОРОЖНОСТЬЮ		!!!
 
 	String str9 = str3;	//CopyConstructor
+	str9.info();
+#endif // CALLING_CONSTRUCTORS
+
 }
 
 String get_text(const String& other)

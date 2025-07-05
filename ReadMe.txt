@@ -5,6 +5,9 @@ TOREAD:
 !!! https://learn.microsoft.com/en-us/cpp/build/reference/zc-nrvo?view=msvc-170 !!!
 https://legacy.cplusplus.com/doc/tutorial/classes2/
 
+TODO:
+По желанию пишем класс Matrix. Кому тяжело идет динамическая память, повторяем то, чем занималисб на занятии, читаем конспект и статьи выше.
+
 
 DONE:
 1. 

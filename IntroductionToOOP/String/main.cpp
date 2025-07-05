@@ -228,8 +228,21 @@ void main()
 
 	String str3 = "Hello";	//Single-argumentconstructor ('const char*');
 	str3.info();
-
 	cout << typeid("Hello").name() << endl;
+
+	String str4();		//(Default constrcutor) Здесь НЕ вызывается никакой конструктор,
+						//и не создается никакой объект, здесь происходит объявление функции str4(),
+						//которая ничего НЕ принимает, и озвращает объект типа 'String'.
+	//Пустые () НЕ делают явный вызов Default-конструктора.
+	//str4.
+
+	//Если нужно явно вызвать DefaultConstructor, это можно сделать {}
+	String str5(8);		//Создается строка длиной 8 Байт
+	String str6{ 8 };	//Создается строка длиной 8 Байт, т.е., {} вызывают конструктор.
+	String str7{};		//Явный вызов конструктора по умолчанию
+	//		!!!		{} СЛЕДУЕТ ИСПОЛЬЗОВАТЬ С ОСТОРОЖНОСТЬЮ		!!!
+
+	String str9 = str3;	//CopyConstructor
 }
 
 String get_text(const String& other)

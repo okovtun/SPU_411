@@ -7,6 +7,13 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Inheritance", "Inheritance\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Academy", "Academy\Academy.vcxproj", "{7853E57F-C6EF-4CC8-98F3-5EB3ADB0D463}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Files", "Files\Files.vcxproj", "{D852FBE5-6D14-42D3-AC7B-81B358BEADF6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{87BC7DF4-9F4C-44DD-B1DA-6652C98C27DC}"
+	ProjectSection(SolutionItems) = preProject
+		..\ReadMe.txt = ..\ReadMe.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +38,14 @@ Global
 		{7853E57F-C6EF-4CC8-98F3-5EB3ADB0D463}.Release|x64.Build.0 = Release|x64
 		{7853E57F-C6EF-4CC8-98F3-5EB3ADB0D463}.Release|x86.ActiveCfg = Release|Win32
 		{7853E57F-C6EF-4CC8-98F3-5EB3ADB0D463}.Release|x86.Build.0 = Release|Win32
+		{D852FBE5-6D14-42D3-AC7B-81B358BEADF6}.Debug|x64.ActiveCfg = Debug|x64
+		{D852FBE5-6D14-42D3-AC7B-81B358BEADF6}.Debug|x64.Build.0 = Debug|x64
+		{D852FBE5-6D14-42D3-AC7B-81B358BEADF6}.Debug|x86.ActiveCfg = Debug|Win32
+		{D852FBE5-6D14-42D3-AC7B-81B358BEADF6}.Debug|x86.Build.0 = Debug|Win32
+		{D852FBE5-6D14-42D3-AC7B-81B358BEADF6}.Release|x64.ActiveCfg = Release|x64
+		{D852FBE5-6D14-42D3-AC7B-81B358BEADF6}.Release|x64.Build.0 = Release|x64
+		{D852FBE5-6D14-42D3-AC7B-81B358BEADF6}.Release|x86.ActiveCfg = Release|Win32
+		{D852FBE5-6D14-42D3-AC7B-81B358BEADF6}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

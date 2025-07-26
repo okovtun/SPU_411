@@ -1,4 +1,5 @@
 ﻿#include<iostream>
+#include<fstream>
 #include<string>
 //using namespace std;
 using std::cin;
@@ -13,7 +14,8 @@ using std::endl;
 class Human
 {
 	//static const double PI = 3.14;	//E1591
-	static const int LAST_NAME_WIDTH = 15;
+	static const int TYPE_WIDTH = 10;
+	static const int LAST_NAME_WIDTH = 16;
 	static const int FIRST_NAME_WIDTH = 15;
 	static const int AGE_WIDTH = 3;
 	static int count;		//static member declaration
@@ -68,12 +70,18 @@ public:
 	//				  Methods:
 	virtual std::ostream& info(std::ostream& os)const
 	{
+		os.width(TYPE_WIDTH);
+		os << std::left;//первый вызов width() задает выравнивание по правому краю заданного поля, 
+						//и его нужно явно выровнять по левому краю.
+		os << std::string(typeid(*this).name() + 6) + ":";	//+6 - убираем из строки слово class
+		//https://legacy.cplusplus.com/reference/cstring/strchr/
+		//os << strchr(typeid(*this).name(), ' ')+1 << ":";
 		//return os << last_name << " " << first_name << " " << age;
 		os.width(LAST_NAME_WIDTH);	//метод width(N) задает ширину вывода в 'N' знакопозиций,
 						//если выводимая строка меньше 'N', то недостающие символы заполняются пробелами,
 						//если выводимая строка больше 'N', она выводится полностью, и общее выравнивание нарушается
-		os << std::left;//первый вызов width() задает выравнивание по правому краю заданного поля, 
-						//и его нужно явно выровнять по левому краю.
+						//!!! Метод width() задает ширину только для одного выводимого значения,!!!
+						//!!! все последующие значения будут выводиться с минимальной шириной.	!!!
 		os << last_name;
 		os.width(FIRST_NAME_WIDTH);
 		os << first_name;
@@ -141,7 +149,7 @@ public:
 	(
 		HUMAN_TAKE_PARAMETERS,
 		STUDENT_TAKE_PARAMETERS
-	):Human(HUMAN_GIVE_PARAMETERS)
+	) :Human(HUMAN_GIVE_PARAMETERS)
 	{
 		set_speciality(speciality);
 		set_group(group);
@@ -292,14 +300,22 @@ void main()
 		new Student("Vercetty", "Tommy", 30, "Theft", "Vice", 98, 99),
 		new Teacher("Diaz", "Ricardo", 50, "Weapons distribution", 20),
 		new Graduate("Targarian", "Daineris", 22, "Flight", "GoT", 91, 92, "How to make smoke"),
-		new Teacher("Schwartzneger", "Arnold", 85, "Heavy Metal", 60)
+		new Teacher("Schwartzenegger", "Arnold", 85, "Heavy Metal", 60)
 	};
+	char filename[] = "group.txt";
+	std::ofstream fout(filename);
 	for (int i = 0; i < sizeof(group) / sizeof(group[0]); i++)
 	{
 		//group[i]->info();
 		cout << *group[i] << endl;
+		fout << *group[i] << endl;
 		cout << delimiter << endl;
 	}
+	fout.close();
+	system((std::string("start notepad ") + filename).c_str());
+	char cmd[FILENAME_MAX] = "notepad ";
+	;
+	//system(strcat(cmd, filename));
 	cout << "Количество людей: " << group[0]->get_count() << endl;
 	for (int i = 0; i < sizeof(group) / sizeof(group[0]); i++)
 	{

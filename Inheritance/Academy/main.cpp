@@ -12,10 +12,19 @@ using std::endl;
 
 class Human
 {
+	//static const double PI = 3.14;	//E1591
+	static const int LAST_NAME_WIDTH = 15;
+	static const int FIRST_NAME_WIDTH = 15;
+	static const int AGE_WIDTH = 3;
+	static int count;		//static member declaration
 	std::string last_name;
 	std::string first_name;
 	int age;
 public:
+	static int get_count()
+	{
+		return count;
+	}
 	const std::string& get_last_name()const
 	{
 		return last_name;
@@ -47,19 +56,34 @@ public:
 		set_last_name(last_name);
 		set_first_name(first_name);
 		set_age(age);
+		count++;
 		cout << "HConstrutor:\t" << this << endl;
 	}
 	virtual ~Human()
 	{
+		count--;
 		cout << "HDestructor:\t" << this << endl;
 	}
 
 	//				  Methods:
 	virtual std::ostream& info(std::ostream& os)const
 	{
-		return os << last_name << " " << first_name << " " << age;
+		//return os << last_name << " " << first_name << " " << age;
+		os.width(LAST_NAME_WIDTH);	//метод width(N) задает ширину вывода в 'N' знакопозиций,
+						//если выводимая строка меньше 'N', то недостающие символы заполняются пробелами,
+						//если выводимая строка больше 'N', она выводится полностью, и общее выравнивание нарушается
+		os << std::left;//первый вызов width() задает выравнивание по правому краю заданного поля, 
+						//и его нужно явно выровнять по левому краю.
+		os << last_name;
+		os.width(FIRST_NAME_WIDTH);
+		os << first_name;
+		os.width(AGE_WIDTH);
+		os << age;
+		return os;
 	}
 };
+//static member definition:
+int Human::count = 0;	//Статические переменные можно инициализировать только за пределами класса.
 std::ostream& operator<<(std::ostream& os, const Human& obj)
 {
 	return obj.info(os);
@@ -71,6 +95,9 @@ std::ostream& operator<<(std::ostream& os, const Human& obj)
 
 class Student :public Human
 {
+	static const int SPECIALITY_WIDTH = 22;
+	static const int GROUP_WIDTH = 8;
+	static const int RATING_WIDTH = 5;
 	std::string speciality;
 	std::string group;
 	double rating;		//успеваемость
@@ -130,8 +157,19 @@ public:
 	//					Methods:
 	std::ostream& info(std::ostream& os)const override
 	{
-		Human::info(os) << " ";
-		return os << speciality << " " << group << " " << rating << " " << attendance;
+		Human::info(os);
+		os.width(SPECIALITY_WIDTH);
+		os << speciality;
+		os.width(GROUP_WIDTH);
+		os << group;
+		os.width(RATING_WIDTH);
+		os << rating;
+		os.width(RATING_WIDTH);
+		os << attendance;
+		return os;
+
+		//Human::info(os) << " ";
+		//return os << speciality << " " << group << " " << rating << " " << attendance;
 	}
 };
 
@@ -140,6 +178,8 @@ public:
 
 class Teacher :public Human
 {
+	static const int SPECIALITY_WIDTH = 22;
+	static const int EXPERIENCE_WIDTH = 3;
 	std::string speciality;
 	int experience;
 public:
@@ -179,8 +219,14 @@ public:
 	//				Methods:
 	std::ostream& info(std::ostream& os)const override
 	{
-		Human::info(os) << " ";
-		return os << speciality << " " << experience;
+		Human::info(os);
+		os.width(SPECIALITY_WIDTH);
+		os << speciality;
+		os.width(EXPERIENCE_WIDTH);
+		os << experience;
+		return os;
+		//Human::info(os) << " ";
+		//return os << speciality << " " << experience;
 	}
 };
 
@@ -244,7 +290,9 @@ void main()
 		new Teacher("White", "Walter", 50, "Chemistry", 25),
 		new Graduate("Schreder", "Hank", 40, "Criminalistic", "WW_220", 40, 60, "How to catch Heisenberg"),
 		new Student("Vercetty", "Tommy", 30, "Theft", "Vice", 98, 99),
-		new Teacher("Diaz", "Ricardo", 50, "Weapons distribution", 20)
+		new Teacher("Diaz", "Ricardo", 50, "Weapons distribution", 20),
+		new Graduate("Targarian", "Daineris", 22, "Flight", "GoT", 91, 92, "How to make smoke"),
+		new Teacher("Schwartzneger", "Arnold", 85, "Heavy Metal", 60)
 	};
 	for (int i = 0; i < sizeof(group) / sizeof(group[0]); i++)
 	{
@@ -252,9 +300,12 @@ void main()
 		cout << *group[i] << endl;
 		cout << delimiter << endl;
 	}
+	cout << "Количество людей: " << group[0]->get_count() << endl;
 	for (int i = 0; i < sizeof(group) / sizeof(group[0]); i++)
 	{
 		delete group[i];
 	}
+	cout << "Количество людей: " << group[0]->get_count() << endl;
+	//cout << "Количество людей: " << Human::get_count() << endl;
 
 }

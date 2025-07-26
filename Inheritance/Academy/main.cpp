@@ -259,8 +259,41 @@ public:
 	}
 };
 
+void Print(Human* group[], const int n)
+{
+	cout << typeid(group).name() << endl;
+	for (int i = 0; i < n; i++)
+	{
+		//group[i]->info();
+		cout << *group[i] << endl;
+		//cout << delimiter << endl;
+	}
+	cout << "Количество людей: " << group[0]->get_count() << endl;
+}
+void Save(Human** group, const int n, char filename[])
+{
+	std::ofstream fout(filename);
+	for (int i = 0; i < n; i++)
+	{
+		//group[i]->info();
+		fout << *group[i] << endl;
+		cout << delimiter << endl;
+	}
+	fout.close();
+	system((std::string("start notepad ") + filename).c_str());
+	char cmd[FILENAME_MAX] = "notepad ";
+}
+void Clear(Human** group, const int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		delete group[i];
+	}
+}
+
+
 //#define INHERITANCE
-#define POLYMORPHISM	//poly - много, morphis - форма.
+//#define POLYMORPHISM	//poly - много, morphis - форма.
 
 void main()
 {
@@ -280,15 +313,16 @@ void main()
 	graduate.info();
 #endif // INHERITANCE
 
+#ifdef POLYMORPHISM
 	/*
-	---------------------------------------------------
-	1. Ad-hoc polymorphism;
-	2. Inclusion polymorphism (полиморфизм подтипов):
-		Указатели на базовый класс (Base class pointers): Generalisation, Upcast;
-		Виртуальные методы: vfptr (Virtual Function pointers) - таблица указателей на виртуальные функции;
-	   Runtime polymorphism;
-	---------------------------------------------------
-	*/
+---------------------------------------------------
+1. Ad-hoc polymorphism;
+2. Inclusion polymorphism (полиморфизм подтипов):
+	Указатели на базовый класс (Base class pointers): Generalisation, Upcast;
+	Виртуальные методы: vfptr (Virtual Function pointers) - таблица указателей на виртуальные функции;
+   Runtime polymorphism;
+---------------------------------------------------
+*/
 
 	Human* group[] =
 	{
@@ -322,6 +356,22 @@ void main()
 		delete group[i];
 	}
 	cout << "Количество людей: " << group[0]->get_count() << endl;
-	//cout << "Количество людей: " << Human::get_count() << endl;
+	//cout << "Количество людей: " << Human::get_count() << endl;  
+#endif // POLYMORPHISM
 
+	Human* group[] =
+	{
+		//Приведение дочернего объекта к базовому типу называют Upcast
+		new Human("Montana", "Antonio", 25),
+		new Student("Pinkman", "Jessie", 22, "Chemistry", "WW_220", 95, 99),
+		new Teacher("White", "Walter", 50, "Chemistry", 25),
+		new Graduate("Schreder", "Hank", 40, "Criminalistic", "WW_220", 40, 60, "How to catch Heisenberg"),
+		new Student("Vercetty", "Tommy", 30, "Theft", "Vice", 98, 99),
+		new Teacher("Diaz", "Ricardo", 50, "Weapons distribution", 20),
+		new Graduate("Targarian", "Daineris", 22, "Flight", "GoT", 91, 92, "How to make smoke"),
+		new Teacher("Schwartzenegger", "Arnold", 85, "Heavy Metal", 60)
+	};
+	cout << typeid(group).name() << endl;
+	Print(group, sizeof(group)/sizeof(group[0]));
+	Clear(group, sizeof(group) / sizeof(group[0]));
 }

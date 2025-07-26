@@ -6,6 +6,7 @@ TOREAD:
 https://legacy.cplusplus.com/doc/tutorial/classes2/
 
 TODO:
+0. Создать ветку 'AcademyAndFilesHW';
 1. Для всех классов в проекте 'Academy' перегрузить 'ostream operator',
    чтобы студентов, преподавателей и всех остальных можно было выводить на экран
    так:

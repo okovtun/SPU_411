@@ -1,11 +1,22 @@
 ﻿https://github.com/okovtun/SPU_411.git
 https://www.youtube.com/playlist?list=PLeqyOOqxeiIP4usBDeWs6DqgAEn7Yj2aG
 
+https://stackoverflow.com/questions/73964338/how-to-disable-automatic-brace-surrounding-on-selection-in-visual-studio
+
 TOREAD:
 !!! https://learn.microsoft.com/en-us/cpp/build/reference/zc-nrvo?view=msvc-170 !!!
 https://legacy.cplusplus.com/doc/tutorial/classes2/
 
+virtual type name(parameters) modifiers = 0;
+
 TODO:
+Реализовать иерархию геометрических фигур: Квадрат, Треугольник,
+Круг, Прямоуеольник, ......
+Для каждой фигуры вывести певичные свойства (Длина сторон, радиус...)
+и вторичные свойства: Площадь, периметр и т.д.
+Так же должна быть возможность нарисовать каждую фигуру.
+
+DONE:
 0. Создать ветку 'AcademyAndFilesHW';
 1. Для всех классов в проекте 'Academy' перегрузить 'ostream operator',
    чтобы студентов, преподавателей и всех остальных можно было выводить на экран

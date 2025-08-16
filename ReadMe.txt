@@ -15,6 +15,7 @@ TODO:
 Для каждой фигуры вывести певичные свойства (Длина сторон, радиус...)
 и вторичные свойства: Площадь, периметр и т.д.
 Так же должна быть возможность нарисовать каждую фигуру.
+WinGDI:	https://learn.microsoft.com/en-us/windows/win32/gdi/filled-shape-functions
 
 DONE:
 0. Создать ветку 'AcademyAndFilesHW';
